@@ -1,11 +1,8 @@
-var path = require ('path');
-var webpack = require('webpack')
+ var webpack = require('webpack')
 module.exports={
 	entry: './main.js' ,
 	output: {
-		path: path.resolve(__dirname, 'dist'),
-		filename: 'bundle.js' , 
-		publicPath: '/dist'
+		 filename: 'bundle.js'
 		
 	},
 	
@@ -22,8 +19,8 @@ module.exports={
 		]
 	} ,
 	plugins: [
-			new webpack.optimize.UglifyJsPlugin({
+		/* 	new webpack.optimize.UglifyJsPlugin({
 				//..
-			})
+			}) */
 	]
 }
