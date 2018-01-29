@@ -1,0 +1,22 @@
+{
+  "name": "webpack-test",
+  "version": "1.0.0",
+  "auther": "Amir Baghdoust",
+  "licence": "MIT",
+  "discription": " a test web app for webpack",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"no tests\" ",
+    "build": "webpack-dev-server",
+    "build:initial": "webpack-dev-server --entry ./src/js/app.js --output-filename ./dist/bundle.js",
+    "build:local": "webpack src/js/app.js dist/bundle.js",
+    "build:prod": "webpack src/js/app.js dist/bundle.js -p",
+    "build:prodnew": "webpack  -p"
+  },
+  "devDependencies": {
+    "css-loader": "^0.28.9",
+    "style-loader": "^0.19.1",
+    "webpack": "^2.2.1",
+    "webpack-dev-server": "^2.11.1"
+  }
+}
