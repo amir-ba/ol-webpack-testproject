@@ -5,10 +5,13 @@ import {secretButton , secretParagraph} from './dom-loader'
 var showSecret = false;
   	secretButton.addEventListener('click', toggleSecretState);
 updateSecretParagraph();
+
+
+ ready(function() {
 console.log(1)
 var alertMe= 'Hello world webpack is running'
 alert(alertMe)
- 
+})
 //setTimeout(function(){ alert("Hello"); }, 3000);
 
 function toggleSecretState() {
@@ -32,4 +35,10 @@ function updateSecretParagraph() {
         secretParagraph.style.display = 'none';
     }
 }
- 
+function ready(fn) {
+  if (document.readyState == 'DONE'){
+    fn();
+  } else {
+    document.addEventListener('DOMContentLoaded', fn);
+  }
+}

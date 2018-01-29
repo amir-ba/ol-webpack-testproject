@@ -13,5 +13,6 @@ p {
     padding: 20px;
     margin: 30px auto;
     width: 50%;
+	display:none;
     font-size: 18px;
 }
