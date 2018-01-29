@@ -1,17 +1,15 @@
-import './style.css' ;
-import './input-elements.css' ;
+import '../styles/style.css' ;
+import '../styles/input-elements.css' ;
 import {secretButton , secretParagraph} from './dom-loader'
 
 var showSecret = false;
-
-
-
- ready(function() {
-	secretButton.addEventListener('click', toggleSecretState);
+  	secretButton.addEventListener('click', toggleSecretState);
 updateSecretParagraph();
+console.log(1)
 var alertMe= 'Hello world webpack is running'
 alert(alertMe)
-})
+ 
+//setTimeout(function(){ alert("Hello"); }, 3000);
 
 function toggleSecretState() {
     showSecret = !showSecret;
@@ -34,10 +32,4 @@ function updateSecretParagraph() {
         secretParagraph.style.display = 'none';
     }
 }
-function ready(fn) {
-  if (document.readyState != 'loading'){
-    fn();
-  } else {
-    document.addEventListener('DOMContentLoaded', fn);
-  }
-}
+ 
