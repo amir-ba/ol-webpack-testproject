@@ -35,12 +35,9 @@ const main = {
             $: 'jquery'
         }) 
         
-//        ,new HtmlWebpackIncludeAssetsPlugin({
-//    assets: ['alert.js'],
-//    append: true
-//  })
+
        , new HtmlPlugin({
-            template: 'index.html',
+            template: 'index.ejs',
             inject:'body'
         })
     ]
@@ -74,7 +71,7 @@ const prod = {
 }
 const dev = {
     output: {
-        path: path.resolve(__dirname, 'src'),
+        path: path.resolve(__dirname, '/'),
         filename: '[name].js',
             pathinfo: true
 
