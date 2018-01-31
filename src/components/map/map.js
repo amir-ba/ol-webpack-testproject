@@ -11,18 +11,32 @@ import View from 'ol/view';
 
 class Map {
   constructor(conf) {
-    this.conf = conf;
+    this.conf = conf
   }
-  init() {
-    this.map = new OLMap({
+
+  get map() {
+    this._map=this.createMap()
+    return  this._map
+  }
+  createMap() {
+    return new OLMap({
       target: this.conf.target,
       layers: [],
       view: new View({
         center: this.conf.center,
         zoom: this.conf.zoom
       })
-    });
-    }
+    })
+  }
+  LayerAdder(layer,name,id){
+     layer.set('name',name)
+    layer.set('id',id)
+
+    this._map.addLayer(layer);
+
+
+  }
+
 }
 
 export default Map;

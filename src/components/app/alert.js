@@ -9,7 +9,7 @@
 
  ready(function() {
  var alertMe= 'Hello world webpack is running'
-alert(alertMe)
+//alert(alertMe)
 })
 function ready(fn) {
   if (document.readyState == 'DONE'){

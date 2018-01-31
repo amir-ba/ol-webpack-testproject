@@ -20,9 +20,11 @@ html, body {
 }
 #info{    
     position: absolute;
-    height: 10px;
-    width: 10px;
+ 
     z-index: 100;
+    background-color: #d2d2d28a;
+    border-radius: 4px;
+    padding: 6px;
 
 }
 #module-container{
@@ -68,7 +70,7 @@ a#menu-slider.slided{
     transition: all 0.5s;
 
 }
-#information-box{
+.box{
     position: relative;
     margin: 2rem   1rem ;
     background-color: #fff;
@@ -80,5 +82,78 @@ a#menu-slider.slided{
     box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2);
     left: auto;
     right: auto;
-    padding: 10px;
+     
+ }
+ul{
+    list-style-type: none;
+    padding: 0 0.1rem;
 }
+#information-box{
+     padding-left: 15px;
+    padding-bottom: 5px;
+}
+ 
+.box-header{
+    padding-left: 15px;
+    padding-bottom: 5px;
+    background-color: #37474f2b;
+}
+#layers-box{
+    padding-left: 15px;
+    padding-bottom: 5px;
+}
+#detail-box{
+    display: none;
+}
+
+.switch {
+    margin: 5px 10px;
+    position: relative;
+    display: inline-block;
+    width: 50px;
+    height: 24px;
+  }
+  
+  .switch input {display:none;}
+  
+  .slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    -webkit-transition: .4s;
+    transition: .4s;
+      border-radius: 25px;
+  
+  }
+  
+  .slider:before {
+    position: absolute;
+    content: "";
+    height: 24px;
+    width: 24px;
+    left: 0px;
+    bottom: 0px;
+    background-color: #ccc;
+    -webkit-transition: .4s;
+    transition: .4s;
+      border-radius: 50%;
+  
+  }
+  
+  input:checked + .slider {
+    background-color: #2196F3;
+  }
+  
+  input:focus + .slider {
+    box-shadow: 0 0 1px #2196F3;
+  }
+  
+  input:checked + .slider:before {
+    -webkit-transform: translateX(26px);
+    -ms-transform: translateX(26px);
+    transform: translateX(26px);
+  }

@@ -3,6 +3,8 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+import Map from '../map/map';
+import conf from '../map/map.config.js';
 
 import Vector from 'ol/source/vector';
 import VectorLayer from 'ol/layer/vector';
@@ -19,21 +21,27 @@ import proj from 'ol/proj';
 import coordinate from 'ol/coordinate';
 import Overlay from 'ol/overlay';
 
+
+
+export const MapClass = new Map(conf.map)
+export const MAP = MapClass.map
+
 // create element to keep track of the clicked feature 
 let Highlight;
 // function to locate the user on map 
-export const geolocateOnMap = (map) => {
+export const geolocateOnMap = () => {
     navigator.geolocation.getCurrentPosition(function (pos) {
         const coords = proj.fromLonLat([pos.coords.longitude, pos.coords.latitude]);
-        map.getView().animate({center: coords});
-
+        MAP.getView().animate({ center: coords });
         const position = new Vector();
         const vector = new VectorLayer({
             source: position
+            , name: 'my location',
+            id: 'L04'
         });
-        map.addLayer(vector);
-
-        // inserindo um ponto com marker
+        MAP.addLayer(vector);
+   
+        // add the marker on the map
         position.addFeature(new Feature(new Point(coords)));
 
         vector.setStyle(new Style({
@@ -43,15 +51,17 @@ export const geolocateOnMap = (map) => {
                     color: 'red'
                 })
             })
-//                new IconStyle({
-//            src: './marker.png'
-//        })
+            //                new IconStyle({
+            //            src: './marker.png'
+            //        })
         }));
+       ($('#location-switch input').attr('id')!='undefined')? $('#location-switch input').attr('id','L04'):null;
+     
     });
 };
 
 // class for creating a map style 
-const createStyle = (styleObj) =>{
+const createStyle = (styleObj) => {
     return new Style({
         fill: new Fill({
             color: styleObj.fillColor //'rgba(255, 255, 0,1)'
@@ -75,16 +85,20 @@ const createStyle = (styleObj) =>{
     });
 }
 
-;
+    ;
 
 // creates a popup bubble as an overlay for the point 
-export const popupOverlay = new Overlay({
-    element: $('#info-dummy')[0],
-    positioning: 'bottom-center',
-    offset: [0, -10]
-});
+const popupOverlayCreater = (map = MAP) => {
+    const overlay = new Overlay({
+        element: $('#info-dummy')[0],
+        positioning: 'bottom-center',
+        offset: [0, -10]
+    });
+    MAP.addOverlay(overlay);
+    return overlay
+}
 // creates a layer overlay for the selected elements 
-export const featureOverlayCreater = (map) => {
+const featureOverlayCreater = (map = MAP) => {
     let highlightStyle = createStyle({
         fillColor: 'rgba(255, 255, 0,1)',
         strokeColor: '#f00',
@@ -94,32 +108,34 @@ export const featureOverlayCreater = (map) => {
         textStrokeWidth: 3
     });
 
-    return  new VectorLayer({
+    return new VectorLayer({
         source: new Vector(),
-        map: map,
+        map: MAP,
         style: function (feature) {
             highlightStyle.getText().setText(feature.get('name'))
             return highlightStyle;
         }
     });
 }
+const overlays = { popupOverlay: popupOverlayCreater(), featureOverlay: featureOverlayCreater() }
 
 // the function for changingthe clicked features color
-export const changeColor = (pixel, map, featureOverlay) => {
+export const changeColor = (pixel) => {
     const infobox = $('#information-box');
-    let feature = map.forEachFeatureAtPixel(pixel, function (feature) {
-        console.log(feature)
+    let feature = MAP.forEachFeatureAtPixel(pixel, function (feature) {
         return feature;
     });
     if (feature !== Highlight) {
         if (Highlight) {
-            featureOverlay.getSource().removeFeature(Highlight);
+            overlays.featureOverlay.getSource().removeFeature(Highlight);
             infobox.text('');
+            $('#detail-box').hide();
         }
         if (feature) {
-            featureOverlay.getSource().addFeature(feature);
-            infobox.text(feature.get('name'));
+            overlays.featureOverlay.getSource().addFeature(feature);
+            infobox.text(feature.get('NAME'));
 
+            $('#detail-box').show()
 
         }
         Highlight = feature;
@@ -130,10 +146,10 @@ export const changeColor = (pixel, map, featureOverlay) => {
 };
 
 // the function for updating the tooltip
-export const  displayFeatureInfo = (pixel, map, popupOverlay) => {
+export const displayFeatureInfo = (pixel) => {
     const info = $('#info');
-    popupOverlay.setPosition();
-    var feature = map.forEachFeatureAtPixel(pixel, function (feature) {
+    overlays.popupOverlay.setPosition();
+    var feature = MAP.forEachFeatureAtPixel(pixel, function (feature) {
         return feature;
     });
     if (feature) {
@@ -142,15 +158,48 @@ export const  displayFeatureInfo = (pixel, map, popupOverlay) => {
             top: (pixel[1] - 35) + 'px'
 
         });
-        info.text(feature.get('name'));
+        //  console.log(feature)
+        info.text(feature.get('NAME'));
         if (feature.getGeometry().getType() === 'Point') {
             var coords = feature.getGeometry().getCoordinates();
             var hdms = coordinate.toStringHDMS(proj.toLonLat(coords));
-            popupOverlay.getElement().innerHTML = hdms;
-            popupOverlay.setPosition(coords);
+            overlays.popupOverlay.getElement().innerHTML = hdms;
+            overlays.popupOverlay.setPosition(coords);
         }
 
     } else {
         info.text('');
+
     }
+};
+
+
+
+const styleGenerator = (fillColor, strokeColor) => {
+    return new Style({
+        stroke: new Stroke({
+            color: strokeColor
+        }),
+        fill: new Fill({
+            color: fillColor
+        })
+    })
+}
+
+export const getstyle = (feature) => {
+    let x = feature.getProperties().MALE;
+    // console.log(x)
+    let style;
+    if (x < 1000000)
+        style = styleGenerator('#fef0d9', 'blue')
+    if (x > 1000000 && x < 1500000)
+        style = styleGenerator('#fdcc8a', 'blue')
+    if (x > 1500000 && x < 2000000)
+        style = styleGenerator('#fc8d59', 'gray')
+    if (x > 2000000 && x < 2500000)
+        style = styleGenerator('#e34a33', 'gray')
+    if (x > 2500000)
+        style = styleGenerator('#b30000', 'gray')
+
+    return style
 };
