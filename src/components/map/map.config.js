@@ -28,6 +28,7 @@ export default {
         layerId: 'L02',
         layerData: new VectorLayer({
             source: new Vector({
+                // file is publicly available  from UN 
                 url: 'https://raw.githubusercontent.com/MinnPost/simple-map-d3/master/example-data/world-population.geo.json',
                 format: new GeoJSON()
             })

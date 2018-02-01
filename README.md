@@ -1,5 +1,8 @@
 # ol-webpack-testproject
-A test project for learning `webpack` in combination with `ol`.in this project the following Openlayers features are used:
+A test project for learning `webpack` in combination with `ol`.
+`webpack`creates a workflow for importing all your application files by compiling all the files into bundles.
+Wepack is a great tool for building and managing the code.
+in this project the following Openlayers features are used:
 
 - Tooltip for vector layers on hover.
 - Representation of the attribute data for vector layers on click with the help of `ol.interaction`.
