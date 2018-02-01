@@ -10,7 +10,7 @@
     "start": "webpack-dev-server --env=dev ",
     "start:prod": "webpack-dev-server --env=prod",
     "build": "webpack --env=dev mocha main.js",
-    "build:prod": "webpack  -p --env=prod mocha ./dist/main.js"
+    "build:prod": "webpack  -p --env=prod"
   },
   "devDependencies": {
     "babel-core": "^6.26.0",
