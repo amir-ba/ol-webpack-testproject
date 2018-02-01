@@ -6,11 +6,11 @@
   "discription": " a test web app for webpack and Openlayers",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"no tests\" ",
-    "start": "webpack-dev-server --env=dev",
+    "test": "echo 'there is no test ' ",
+    "start": "webpack-dev-server --env=dev ",
     "start:prod": "webpack-dev-server --env=prod",
-    "build": "webpack --env=dev",
-    "build:prod": "webpack  -p --env=prod"
+    "build": "webpack --env=dev mocha main.js",
+    "build:prod": "webpack  -p --env=prod mocha ./dist/main.js"
   },
   "devDependencies": {
     "babel-core": "^6.26.0",
@@ -27,6 +27,7 @@
   "dependencies": {
     "bootstrap": "^4.0.0",
     "jquery": "^3.3.1",
-    "ol": "^4.6.4"
+    "ol": "^4.6.4",
+    "popper.js": "^1.12.9"
   }
 }

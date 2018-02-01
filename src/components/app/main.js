@@ -4,57 +4,39 @@
 // * and open the template in the editor.
 // */
 //
+import 'bootstrap/dist/css/bootstrap.min.css';
+import bootstrap from 'bootstrap'
 import '../../styles/map-style.css';
 import 'jquery';
-import { sliderToggle, layerList } from './interface';
+import { sliderToggle, layerList, switchToggleListner } from './interface';
 import conf from '../map/map.config.js';
 import fetchData from '../map/wfsToLayer'
 import * as MapFunctions from '../map/mapFunctions';
-import 'bootstrap/dist/css/bootstrap.min.css';
- 
+
 
 // create the slider bar on the right side 
 sliderToggle();
+switchToggleListner();
 
-// initiate the openlayer map 
+// get the created and watch for change in the layers array to create a list of layers to show on addition 
 const map = MapFunctions.MAP;
 map.getLayers().on('add', a => layerList(a.element));
+
 // add layers to the map
-conf.layers.map((layer) => {
-   // layer.layerData.set('name',layer.layerName)
-MapFunctions.MapClass.LayerAdder(layer.layerData,layer.layerName,layer.layerId)
+conf.layers.map((layer) => MapFunctions.MapClass.LayerAdder(layer.layerData, layer.layerName, layer.layerId));
+conf.requestLayers.map(fetchableLayer => fetchData(fetchableLayer));
 
-  //  map.addLayer(layer.layerData)
-});
-conf.requestLayers.map(fetchableLayer =>{
-   const mapLayer= fetchData(fetchableLayer);
-  //  mapLayer.set('name',fetchableLayer.layerName)
-} )
-
-// create interactions for the click and hover 
+//create a hover event and translate the pixel into feature  
 map.on('pointermove', function (evt) {
     if (evt.dragging) {
         return;
     }
-  
     const pixel = map.getEventPixel(evt.originalEvent);
-    MapFunctions.displayFeatureInfo(pixel);
-});
-
-map.on('click', function (evt) {
-    MapFunctions.changeColor(evt.pixel);
+    MapFunctions.displayTooltipInfo(pixel);
 });
 
 
-// show the location of the user on the map 
-//MapFunctions.geolocateOnMap(map);
+// add a interaction to map 
+map.addInteraction(MapFunctions.clickInteraction);
+MapFunctions.clickInteraction.on('select', MapFunctions.displayAttributes);
 
-
-
- // generate a GetFeature request
-
-// // create the overlay element for user click
-// const featureOverlay = MapFunctions.featureOverlayCreater(map);
-
-// // create the overlay element for pointer click
-// map.addOverlay(MapFunctions.popupOverlay);

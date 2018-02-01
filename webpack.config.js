@@ -71,11 +71,10 @@ const prod = {
 }
 const dev = {
     output: {
-        path: path.resolve(__dirname, '/'),
-        filename: '[name].js',
-            pathinfo: true
-
-                //publicPath: '/app'
+        path: path.resolve(__dirname, './'),
+        filename: '[name].js'// ,
+ 
+               //  publicPath: '/app'
 
     },
     module: {rules: [{

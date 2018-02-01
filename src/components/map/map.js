@@ -15,8 +15,8 @@ class Map {
   }
 
   get map() {
-    this._map=this.createMap()
-    return  this._map
+    this._map = this.createMap()
+    return this._map
   }
   createMap() {
     return new OLMap({
@@ -28,13 +28,17 @@ class Map {
       })
     })
   }
-  LayerAdder(layer,name,id){
-     layer.set('name',name)
-    layer.set('id',id)
-
+  LayerAdder(layer, name, id) {
+    layer.set('name', name)
+    layer.set('id', id)
     this._map.addLayer(layer);
-
-
+  }
+   
+  get highlight() {
+    return this._highlight;
+  }
+  set highlight(feature) {
+    this._highlight = feature
   }
 
 }

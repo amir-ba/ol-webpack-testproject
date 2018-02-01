@@ -16,39 +16,35 @@
     <div id="map">
         <div id="info"></div>
     </div>
-    <div id="info-dummy"></div>
+    <a id="info-dummy"  class="overlay"></a>
     <a id="menu-slider">
         <div id="menu-slider-arrow"></div>
     </a>
 
     <div id="module-container">
         <div class='box'>
-
-            <label id='location-switch' class="switch">
+            <div class='row'>
+            <label id='location-switch' class="switch col-4">
                 <input type="checkbox"  >
                 <span class="slider round"></span>
             </label>
-            <span>
-                <p>wo bin ich?</p>
-            </span>
-
+                 <p class="col" id='slider-text'>Show my location </p>
+            </div>
         </div>
-
         <div id="detail-box" class='box'>
-            <h3 class='box-header'>Daten</h3>
+            <h3 class='box-header'>Data</h3>
+            <h3 id='notifier'>Select features from map</h3>
 
             <div id="information-box"></div>
         </div>
 
         <div class='box'>
-            <h3 class='box-header'>Layern</h3>
+            <h3 class='box-header'>Layers</h3>
 
             <div id="layers-box"></div>
         </div>
     </div>
-    <!--  <script src="main.js"></script>
- <script src="src/js/dom-loader.js"></script>
-<script src="src/js/app.js"></script> -->
+ 
 </body>
 
 </html>
