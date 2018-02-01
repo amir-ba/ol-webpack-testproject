@@ -12,7 +12,7 @@ const setToggleSlider = () => {
 
     var windows = $(window).width();
     var sliderWidth = $("#module-container").width()
-    if (windows ) {
+    if (windows) {
         if ($("#module-container").css('display') != "block") {
             $("#menu-slider") // Set the left to its calculated position
                 .animate({
@@ -44,7 +44,7 @@ const createCheckbox = (layer) => {
     const header = "<ul></ul>";
     ($('#layers-box ul').length > 0) ? $('#layers-box ul') : $(header).appendTo(parent);
     let selection = $('#layers-box ul');
-    const template =  `<li><div class="custom-checkbox"  >
+    const template = `<li><div class="custom-checkbox"  >
   <input type="checkbox" class="checkbox-input"  checked id=${id}>
   <label class="checkbox-label" for=${id}>${name}</label>
     </div></li>`

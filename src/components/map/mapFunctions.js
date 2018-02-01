@@ -215,25 +215,3 @@ export const displayTooltipInfo = (pixel) => {
         info.hide()
     }
 };
-
-
-// creates a layer overlay for the selected elements 
-// const featureOverlayCreater = (map = MAP) => {
-//     let highlightStyle = createStyle({
-//         fillColor: 'rgba(255, 255, 0,1)',
-//         strokeColor: '#f00',
-//         strokeWidth: 1,
-//         textColor: '#000',
-//         textStrokeColor: '#f00',
-//         textStrokeWidth: 3
-//     });
-
-//     return new VectorLayer({
-//         source: new Vector(),
-//         map: MAP,
-//         style: function (feature) {
-//             highlightStyle.getText().setText(feature.get('name'))
-//             return highlightStyle;
-//         }
-//     });
-// }
